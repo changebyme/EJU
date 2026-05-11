@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>答题网站</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>在线答题</h1>
+
+  <div id="quiz"></div>
+
+  <button onclick="submitQuiz()">提交答案</button>
+
+  <h2 id="result"></h2>
+
+  <script>
+    let questions = [];
+
+    fetch("questions.json")
+      .then(res => res.json())
+      .then(data => {
+        questions = data;
+        renderQuiz();
+      });
+
+    function renderQuiz() {
+      const quiz = document.getElementById("quiz");
+      quiz.innerHTML = "";
+
+      questions.forEach((q, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
+
+        div.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+
+        q.options.forEach((option, i) => {
+          div.innerHTML += `
+            <label>
+              <input type="radio" name="q${index}" value="${i}">
+              ${option}
+            </label><br>
+          `;
+        });
+
+        quiz.appendChild(div);
+      });
+    }
+
+    function submitQuiz() {
+      let score = 0;
+
+      questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selected && Number(selected.value) === q.answer) {
+          score++;
+        }
+      });
+
+      document.getElementById("result").innerText =
+        `你的得分：${score} / ${questions.length}`;
+    }
+  </script>
+</body>
+</html>

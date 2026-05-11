@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "question": "GitHub Pages 主要用于做什么？",
+    "options": ["数据库服务", "静态网站托管", "视频剪辑", "邮件发送"],
+    "answer": 1
+  },
+  {
+    "id": 2,
+    "question": "HTML 文件的入口文件通常叫什么？",
+    "options": ["main.py", "index.html", "app.java", "server.js"],
+    "answer": 1
+  }
+]
